@@ -21,5 +21,9 @@ import { RouterLink, RouterView } from "vue-router";
             </nav>
         </div>
     </header> -->
-    <RouterView />
+    <RouterView v-slot="{ Component }">
+        <Transition appear mode="out-in">
+            <component :is="Component"></component>
+        </Transition>
+    </RouterView>
 </template>

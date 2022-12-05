@@ -51,7 +51,7 @@ function signIn(event: Event) {
                 >Password</label
             >
             <InputText
-                v-model.trim="user.password"
+                v-model="user.password"
                 id="password"
                 type="password"
                 class="w-full mb-3"
