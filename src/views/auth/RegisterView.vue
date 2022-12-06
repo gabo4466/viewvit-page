@@ -6,6 +6,10 @@ import type { Ref } from "vue";
 import { ref, unref } from "vue";
 
 import Message from "primevue/message";
+import type { ErrorResponse } from "@/interfaces/responses/error-response.interface";
+import Swal from "sweetalert2";
+import type { CreateUserResponse } from "../../interfaces/responses/create-user-response.interface";
+import router from "../../router/index";
 
 const user: Ref<User> = ref({
     email: "",
@@ -39,11 +43,26 @@ const validForm = computed<boolean>(() => {
     return valid;
 });
 
-const { logIn } = useAuth();
+const { createUser } = useAuth();
 
 function signUp() {
     if (validForm.value) {
-        console.log("SI");
+        createUser(isLoading, user)
+            .then((data: CreateUserResponse) => {
+                Swal.fire({
+                    title: `Register succesfully!`,
+                    text: `You will be redirected to home`,
+                }).then(() => {
+                    router.push({ name: "home" });
+                });
+            })
+            .catch((error: ErrorResponse) => {
+                if (Array.isArray(error.message)) {
+                    errors.value = error.message;
+                } else {
+                    errors.value.push(error.message);
+                }
+            });
     }
 }
 </script>

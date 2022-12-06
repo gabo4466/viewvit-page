@@ -25,7 +25,6 @@ function signIn(event: Event) {
             router.push({ name: "home" });
         })
         .catch((error: ErrorResponse) => {
-            console.log(error.message);
             if (Array.isArray(error.message)) {
                 errors.value = error.message;
             } else {
