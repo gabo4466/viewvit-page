@@ -68,97 +68,112 @@ function signUp() {
 </script>
 
 <template>
-    <div class="surface-card p-4 shadow-2 border-round w-full lg:w-6">
-        <div class="text-center mb-5">
-            <img
-                src="../../assets/images/viewvitLogo.png"
-                alt="Image"
-                height="200"
-                class="mb-3"
-            />
-            <div class="text-900 text-3xl font-medium mb-3">Welcome Back</div>
-            <span class="text-600 font-medium line-height-3"
-                >Already have an account?</span
-            >
-            <RouterLink to="/auth/register">
-                <a
-                    class="font-medium no-underline ml-2 text-blue-500 cursor-pointer"
-                    >Create one!</a
+    <div class="wrapper">
+        <div class="surface-card p-4 shadow-2 border-round w-full lg:w-6">
+            <div class="text-center mb-5">
+                <img
+                    src="../../assets/images/viewvitLogo.png"
+                    alt="Image"
+                    height="200"
+                    class="mb-3"
+                />
+                <div class="text-900 text-3xl font-medium mb-3">
+                    Welcome Back
+                </div>
+                <span class="text-600 font-medium line-height-3"
+                    >Already have an account?</span
                 >
-            </RouterLink>
-        </div>
+                <RouterLink to="/auth/register">
+                    <a
+                        class="font-medium no-underline ml-2 text-blue-500 cursor-pointer"
+                        >Create one!</a
+                    >
+                </RouterLink>
+            </div>
 
-        <div>
-            <label for="email" class="block text-900 font-medium mb-2"
-                >Email</label
-            >
-            <InputText
-                v-model.trim="user.email"
-                id="email"
-                type="text"
-                class="w-full mb-3"
-            />
-            <label for="nickname" class="block text-900 font-medium mb-2"
-                >Nickname</label
-            >
-            <InputText
-                v-model.trim="user.nickname"
-                id="nickname"
-                type="text"
-                class="w-full mb-3"
-            />
-
-            <label for="name" class="block text-900 font-medium mb-2"
-                >Name</label
-            >
-            <InputText
-                v-model.trim="user.name"
-                id="name"
-                type="text"
-                class="w-full mb-3"
-            />
-
-            <label for="password" class="block text-900 font-medium mb-2"
-                >Password</label
-            >
-            <InputText
-                v-model="user.password"
-                id="password"
-                type="password"
-                class="w-full mb-3"
-            />
-
-            <label for="repeatPassword" class="block text-900 font-medium mb-2"
-                >Repeat Password</label
-            >
-            <InputText
-                v-model="repeatPassword"
-                id="repeatPassword"
-                type="password"
-                class="w-full mb-3"
-            />
-
-            <transition-group class="mb-5" name="p-message" tag="div">
-                <Message
-                    v-for="(msg, idx) in errors"
-                    severity="error"
-                    :key="idx"
-                    :closable="false"
+            <div>
+                <label for="email" class="block text-900 font-medium mb-2"
+                    >Email</label
                 >
-                    <span class="text-sm">{{ msg }}</span>
-                </Message>
-            </transition-group>
+                <InputText
+                    v-model.trim="user.email"
+                    id="email"
+                    type="text"
+                    class="w-full mb-3"
+                />
+                <label for="nickname" class="block text-900 font-medium mb-2"
+                    >Nickname</label
+                >
+                <InputText
+                    v-model.trim="user.nickname"
+                    id="nickname"
+                    type="text"
+                    class="w-full mb-3"
+                />
 
-            <Button
-                @click="signUp"
-                label="Sign In"
-                icon="pi pi-user"
-                class="w-full"
-            ></Button>
-        </div>
+                <label for="name" class="block text-900 font-medium mb-2"
+                    >Name</label
+                >
+                <InputText
+                    v-model.trim="user.name"
+                    id="name"
+                    type="text"
+                    class="w-full mb-3"
+                />
 
-        <div class="wrapper w-full">
-            <ProgressSpinner v-show="isLoading" />
+                <label for="password" class="block text-900 font-medium mb-2"
+                    >Password</label
+                >
+                <InputText
+                    v-model="user.password"
+                    id="password"
+                    type="password"
+                    class="w-full mb-3"
+                />
+
+                <label
+                    for="repeatPassword"
+                    class="block text-900 font-medium mb-2"
+                    >Repeat Password</label
+                >
+                <InputText
+                    v-model="repeatPassword"
+                    id="repeatPassword"
+                    type="password"
+                    class="w-full mb-3"
+                />
+
+                <transition-group class="mb-5" name="p-message" tag="div">
+                    <Message
+                        v-for="(msg, idx) in errors"
+                        severity="error"
+                        :key="idx"
+                        :closable="false"
+                    >
+                        <span class="text-sm">{{ msg }}</span>
+                    </Message>
+                </transition-group>
+
+                <Button
+                    @click="signUp"
+                    label="Sign In"
+                    icon="pi pi-user"
+                    class="w-full"
+                ></Button>
+            </div>
+
+            <div class="w-full">
+                <ProgressSpinner v-show="isLoading" />
+            </div>
         </div>
     </div>
 </template>
+
+<style scoped>
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: column wrap;
+}
+</style>

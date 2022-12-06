@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import NavBar from "@/components/NavBar.vue";
 import { onMounted } from "vue";
 import { useAuth } from "../composables/useAuth";
 
@@ -20,5 +21,6 @@ onMounted(() => {
 </script>
 
 <template>
+    <NavBar></NavBar>
     <h1>Home</h1>
 </template>
