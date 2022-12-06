@@ -2,18 +2,18 @@
 import { ref, type Ref } from "vue";
 import Swal from "sweetalert2";
 import type { User } from "@/interfaces/user.interface";
+import { useLogin } from "../../composables/useLogin";
 
 const isLoading: Ref<boolean> = ref(false);
-
 const user: Ref<User> = ref({
     email: "",
     password: "",
 });
+const { logIn } = useLogin(user, isLoading);
 
 function signIn(event: Event) {
-    Swal.fire(`Hola ${user.value.email}`);
-    console.log({ event });
-    isLoading.value = !isLoading.value;
+    // Swal.fire(`Hola ${user.value.email}`);
+    logIn();
 }
 </script>
 

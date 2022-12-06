@@ -16,6 +16,9 @@ import ProgressSpinner from "primevue/progressspinner";
 import "./assets/main.css";
 
 const app = createApp(App);
+// GLOBAL PROPERTIES
+// TODO: CHANGE IN PRODUCTION
+app.provide("apiUrl", "http://localhost:3000/api/");
 
 app.use(router);
 
