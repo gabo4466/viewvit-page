@@ -4,20 +4,16 @@ import axios, { AxiosError, type AxiosResponse } from "axios";
 export class HttpAxios implements Http {
     private readonly axios = axios;
 
-    async get<T>(url: string, queryParams: object): Promise<T> {
-        const { data } = await this.axios.get<T>(url, {
+    async get(url: string, queryParams: object): Promise<any> {
+        const { data } = await this.axios.get(url, {
             params: queryParams,
         });
         return data;
     }
-    async post<T, E>(
-        url: string,
-        body: object,
-        queryParams?: object
-    ): Promise<T | E> {
-        return new Promise<T | E>((resolve, reject) => {
+    async post(url: string, body: object, queryParams?: object): Promise<any> {
+        return new Promise((resolve, reject) => {
             return this.axios
-                .post<T>(url, body, {
+                .post(url, body, {
                     params: queryParams,
                 })
                 .then((axiosData) => {
@@ -28,14 +24,14 @@ export class HttpAxios implements Http {
                 });
         });
     }
-    async patch<T>(url: string, body: object, queryParams: object): Promise<T> {
-        const { data } = await this.axios.patch<T>(url, body, {
+    async patch(url: string, body: object, queryParams: object): Promise<any> {
+        const { data } = await this.axios.patch(url, body, {
             params: queryParams,
         });
         return data;
     }
-    async delete<T>(url: string, queryParams: object): Promise<T> {
-        const { data } = await this.axios.delete<T>(url);
+    async delete(url: string, queryParams: object): Promise<any> {
+        const { data } = await this.axios.delete(url);
         return data;
     }
 }

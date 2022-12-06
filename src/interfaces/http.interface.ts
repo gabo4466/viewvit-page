@@ -1,6 +1,6 @@
 export interface Http {
-    get<T>(url: string, queryParams: object): Promise<T>;
-    post<T, E>(url: string, body: object, queryParams?: object): Promise<T | E>;
-    patch<T>(url: string, body: object, queryParams: object): Promise<T>;
-    delete<T>(url: string, queryParams: object): Promise<T>;
+    get(url: string, queryParams: object): Promise<any>;
+    post(url: string, body: object, queryParams?: object): Promise<any>;
+    patch(url: string, body: object, queryParams: object): Promise<any>;
+    delete(url: string, queryParams: object): Promise<any>;
 }

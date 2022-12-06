@@ -13,11 +13,11 @@ export function useLogin(userRef: Ref<User>, isLoading: Ref<boolean>) {
     let logIn = async () => {
         isLoading.value = true;
         const response = http
-            .post<LoginResponse, LoginErrorResponse>(apiUrl, user)
-            .then((data) => {
+            .post(apiUrl, user)
+            .then((data: LoginResponse) => {
                 console.log(data);
             })
-            .catch((errorData) => {
+            .catch((errorData: LoginErrorResponse) => {
                 console.log(errorData);
             });
 
