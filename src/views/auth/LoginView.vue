@@ -6,7 +6,7 @@ import Message from "primevue/message";
 
 import type { User } from "@/interfaces/user.interface";
 import type { LoginResponse } from "../../interfaces/responses/login-response.interface";
-import type { LoginErrorResponse } from "../../interfaces/responses/login-error-response.interface";
+import type { ErrorResponse } from "../../interfaces/responses/error-response.interface";
 import router from "../../router/index";
 import { useAuth } from "../../composables/useAuth";
 
@@ -24,7 +24,7 @@ function signIn(event: Event) {
             errors.value = [];
             router.push({ name: "home" });
         })
-        .catch((error: LoginErrorResponse) => {
+        .catch((error: ErrorResponse) => {
             console.log(error.message);
             if (Array.isArray(error.message)) {
                 errors.value = error.message;
