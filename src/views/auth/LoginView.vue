@@ -1,19 +1,36 @@
 <script setup lang="ts">
-import { ref, type Ref } from "vue";
+import { ref, warn, type Ref } from "vue";
 import Swal from "sweetalert2";
+import Message from "primevue/message";
+
 import type { User } from "@/interfaces/user.interface";
 import { useLogin } from "../../composables/useLogin";
+import type { LoginResponse } from "../../interfaces/responses/login-response.interface";
+import type { LoginErrorResponse } from "../../interfaces/responses/login-error-response.interface";
+import router from "../../router/index";
 
 const isLoading: Ref<boolean> = ref(false);
 const user: Ref<User> = ref({
     email: "",
     password: "",
 });
-const { logIn } = useLogin(user, isLoading);
+const errors: Ref<string[]> = ref([]);
+const { logIn } = useLogin(user);
 
 function signIn(event: Event) {
-    // Swal.fire(`Hola ${user.value.email}`);
-    logIn();
+    logIn(isLoading)
+        .then((data: LoginResponse) => {
+            errors.value = [];
+            router.push({ name: "home" });
+        })
+        .catch((error: LoginErrorResponse) => {
+            console.log(error.message);
+            if (Array.isArray(error.message)) {
+                errors.value = error.message;
+            } else {
+                errors.value.push(error.message);
+            }
+        });
 }
 </script>
 
@@ -57,12 +74,23 @@ function signIn(event: Event) {
                 class="w-full mb-3"
             />
 
-            <div class="flex align-items-center justify-content-between mb-6">
+            <div class="flex align-items-center justify-content-between mb-5">
                 <a
                     class="font-medium no-underline ml-2 text-blue-500 text-right cursor-pointer"
                     >Forgot password?</a
                 >
             </div>
+
+            <transition-group name="p-message" tag="div">
+                <Message
+                    v-for="(msg, idx) in errors"
+                    severity="error"
+                    :key="idx"
+                    :closable="false"
+                >
+                    <span class="text-sm">{{ msg }}</span>
+                </Message>
+            </transition-group>
 
             <Button
                 @click="signIn"

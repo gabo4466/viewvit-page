@@ -5,23 +5,26 @@ import { inject } from "vue";
 import type { LoginResponse } from "../interfaces/responses/login-response.interface";
 import type { LoginErrorResponse } from "../interfaces/responses/login-error-response.interface";
 
-export function useLogin(userRef: Ref<User>, isLoading: Ref<boolean>) {
+export function useLogin(userRef: Ref<User>) {
     const apiUrl = inject("apiUrl") + "auth/login";
     const http = new HttpAxios();
     const user = unref(userRef);
 
-    let logIn = async () => {
-        isLoading.value = true;
-        const response = http
-            .post(apiUrl, user)
-            .then((data: LoginResponse) => {
-                console.log(data);
-            })
-            .catch((errorData: LoginErrorResponse) => {
-                console.log(errorData);
-            });
+    let logIn = async (isLoading: Ref<boolean>) => {
+        return new Promise<any>((resolve, reject) => {
+            isLoading.value = true;
+            const response = http
+                .post(apiUrl, user)
+                .then((data: LoginResponse) => {
+                    localStorage.setItem("access", data.token);
+                    resolve(data);
+                })
+                .catch((errorData: LoginErrorResponse) => {
+                    reject(errorData);
+                });
 
-        isLoading.value = false;
+            isLoading.value = false;
+        });
     };
 
     return {
