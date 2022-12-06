@@ -1,38 +1,18 @@
 <script setup lang="ts">
-import { ref, warn, type Ref } from "vue";
-import { RouterLink } from "vue-router";
-
-import Message from "primevue/message";
-
+import { useAuth } from "@/composables/useAuth";
 import type { User } from "@/interfaces/user.interface";
-import type { LoginResponse } from "../../interfaces/responses/login-response.interface";
-import type { LoginErrorResponse } from "../../interfaces/responses/login-error-response.interface";
-import router from "../../router/index";
-import { useAuth } from "../../composables/useAuth";
+import type { Ref } from "vue";
+import { ref } from "vue";
 
-const isLoading: Ref<boolean> = ref(false);
 const user: Ref<User> = ref({
     email: "",
     password: "",
 });
 const errors: Ref<string[]> = ref([]);
+const isLoading: Ref<boolean> = ref(false);
 const { logIn } = useAuth();
 
-function signIn(event: Event) {
-    logIn(isLoading, user)
-        .then((data: LoginResponse) => {
-            errors.value = [];
-            router.push({ name: "home" });
-        })
-        .catch((error: LoginErrorResponse) => {
-            console.log(error.message);
-            if (Array.isArray(error.message)) {
-                errors.value = error.message;
-            } else {
-                errors.value.push(error.message);
-            }
-        });
-}
+function signUp() {}
 </script>
 
 <template>
@@ -96,7 +76,7 @@ function signIn(event: Event) {
             </transition-group>
 
             <Button
-                @click="signIn"
+                @click="signUp"
                 label="Sign In"
                 icon="pi pi-user"
                 class="w-full"
@@ -108,12 +88,3 @@ function signIn(event: Event) {
         </div>
     </div>
 </template>
-
-<style scoped>
-.wrapper {
-    display: flex;
-    flex-flow: column wrap;
-    align-items: center;
-    padding: 10px 0 0 0;
-}
-</style>
