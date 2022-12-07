@@ -11,7 +11,7 @@ const post = props.post;
 
 <template>
     <!-- POSTS -->
-    <div class="surface-50 p-4 shadow-2 border-round mb-4">
+    <div class="surface-50 p-4 shadow-2 border-round mb-4 scalein">
         <!-- TITLE -->
         <div class="text-3xl font-medium text-900 mb-3">{{ post.subject }}</div>
         <!-- USER -->

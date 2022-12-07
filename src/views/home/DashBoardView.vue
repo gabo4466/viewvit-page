@@ -14,11 +14,17 @@ const { getPosts } = usePosts();
 const term = ref("");
 let offset = 0;
 const morePosts = ref(true);
+const limit: number = 5;
 
-onMounted(() => {
-    getPosts(isLoading, offset, term)
+function loadPosts() {
+    getPosts(isLoading, offset, term, limit)
         .then((data: Post[]) => {
-            posts.value = data;
+            morePosts.value = true;
+            offset += data.length;
+            posts.value = posts.value.concat(data);
+            if (data.length < limit) {
+                morePosts.value = false;
+            }
         })
         .catch((error: ErrorResponse) => {
             // TODO: ERRORS
@@ -26,15 +32,48 @@ onMounted(() => {
                 morePosts.value = false;
             }
         });
+}
+
+function searchPosts() {
+    posts.value = [];
+    offset = 0;
+    console.log(term.value);
+
+    loadPosts();
+}
+
+onMounted(() => {
+    loadPosts();
 });
 </script>
 
 <template>
-    <div class="w-full mt-4">
+    <div class="w-full mt-4 fadein">
+        <div class="surface-card shadow-1 px-5 py-3 mb-4">
+            <span class="p-input-icon-left w-full">
+                <i class="pi pi-search" />
+                <InputText
+                    class="p-inputtext-lg w-full"
+                    type="text"
+                    v-model="term"
+                    placeholder="Search"
+                    @keyup.enter="searchPosts"
+                />
+            </span>
+        </div>
         <div class="surface-card shadow-1 p-5">
-            <h1>Recent posts 🔥</h1>
+            <h1>Dashboard 🔥</h1>
             <PostComponent v-for="post in posts" :post="post"></PostComponent>
-            <div class="wrapper w-full">
+            <div class="w-full flex justify-content-center">
+                <Button
+                    class="scalein animation-duration-1000 animation-delay-1000"
+                    v-if="morePosts"
+                    @click="loadPosts"
+                    label="Load more..."
+                />
+            </div>
+
+            <div class="wrapper w-full fadein">
                 <ProgressSpinner v-show="isLoading" />
             </div>
         </div>
