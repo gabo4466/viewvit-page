@@ -1,6 +1,7 @@
 import AboutViewVue from "@/views/AboutView.vue";
 import LoginViewVue from "@/views/auth/LoginView.vue";
 import RegisterViewVue from "@/views/auth/RegisterView.vue";
+import CreatePostViewVue from "@/views/home/CreatePostView.vue";
 import DashBoardViewVue from "@/views/home/DashBoardView.vue";
 import ProfileViewVue from "@/views/home/ProfileView.vue";
 import { createRouter, createWebHistory } from "vue-router";
@@ -28,6 +29,10 @@ const router = createRouter({
                 {
                     path: "profile",
                     component: ProfileViewVue,
+                },
+                {
+                    path: "create-post",
+                    component: CreatePostViewVue,
                 },
             ],
         },
