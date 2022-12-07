@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import { ref, warn, type Ref } from "vue";
-import { RouterLink } from "vue-router";
+import { RouterLink, useRouter } from "vue-router";
 
 import Message from "primevue/message";
 
 import type { User } from "@/interfaces/user.interface";
 import type { LoginResponse } from "../../interfaces/responses/login-response.interface";
 import type { ErrorResponse } from "../../interfaces/responses/error-response.interface";
-import router from "../../router/index";
 import { useAuth } from "../../composables/useAuth";
 
 const isLoading: Ref<boolean> = ref(false);
@@ -18,11 +17,13 @@ const user: Ref<User> = ref({
 const errors: Ref<string[]> = ref([]);
 const { logIn } = useAuth();
 
+const router = useRouter();
+
 function signIn(event: Event) {
     logIn(isLoading, user)
         .then((data: LoginResponse) => {
             errors.value = [];
-            router.push({ name: "home" });
+            router.push({ path: "/home", replace: true });
         })
         .catch((error: ErrorResponse) => {
             if (Array.isArray(error.message)) {

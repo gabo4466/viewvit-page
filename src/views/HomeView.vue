@@ -1,26 +1,34 @@
 <script setup lang="ts">
+import { onActivated, onMounted, ref, type Ref } from "vue";
+import { RouterLink, RouterView } from "vue-router";
+
 import NavBar from "@/components/NavBar.vue";
-import { onMounted } from "vue";
 import { useAuth } from "../composables/useAuth";
 
 const { getAccountData } = useAuth();
 
-function loadUser() {
-    getAccountData()
+const logged: Ref<boolean> = ref(false);
+
+async function loadUser() {
+    await getAccountData()
         .then((data) => {
             localStorage.setItem("user", JSON.stringify(data));
+            logged.value = true;
         })
         .catch((error) => {
             localStorage.clear();
+            logged.value = false;
         });
 }
 
-onMounted(() => {
+onActivated(() => {
+    console.log("Hola mundo");
+
     loadUser();
 });
 </script>
 
 <template>
-    <NavBar></NavBar>
-    <h1>Home</h1>
+    <NavBar :logged="logged"></NavBar>
+    <RouterView />
 </template>

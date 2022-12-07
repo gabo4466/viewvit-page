@@ -9,7 +9,7 @@ import Message from "primevue/message";
 import type { ErrorResponse } from "@/interfaces/responses/error-response.interface";
 import Swal from "sweetalert2";
 import type { CreateUserResponse } from "../../interfaces/responses/create-user-response.interface";
-import router from "../../router/index";
+import { useRouter } from "vue-router";
 
 const user: Ref<User> = ref({
     email: "",
@@ -20,6 +20,8 @@ const user: Ref<User> = ref({
 const repeatPassword: Ref<string> = ref("");
 const errors: Ref<string[]> = ref([]);
 const isLoading: Ref<boolean> = ref(false);
+
+const router = useRouter();
 
 const validForm = computed<boolean>(() => {
     let valid = true;
@@ -53,7 +55,7 @@ function signUp() {
                     title: `Register succesfully!`,
                     text: `You will be redirected to home`,
                 }).then(() => {
-                    router.push({ name: "home" });
+                    router.push({ path: "/home" });
                 });
             })
             .catch((error: ErrorResponse) => {
@@ -77,16 +79,14 @@ function signUp() {
                     height="200"
                     class="mb-3"
                 />
-                <div class="text-900 text-3xl font-medium mb-3">
-                    Welcome Back
-                </div>
+                <div class="text-900 text-3xl font-medium mb-3">Register</div>
                 <span class="text-600 font-medium line-height-3"
                     >Already have an account?</span
                 >
-                <RouterLink to="/auth/register">
+                <RouterLink to="/auth/login">
                     <a
                         class="font-medium no-underline ml-2 text-blue-500 cursor-pointer"
-                        >Create one!</a
+                        >Sign In!</a
                     >
                 </RouterLink>
             </div>
