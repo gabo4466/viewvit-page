@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onActivated, onMounted, ref, type Ref } from "vue";
+import { onActivated, onMounted, onUnmounted, ref, type Ref } from "vue";
 import { RouterLink, RouterView } from "vue-router";
 
 import NavBar from "@/components/NavBar.vue";
@@ -9,11 +9,14 @@ const { getAccountData } = useAuth();
 
 const logged: Ref<boolean> = ref(false);
 
-async function loadUser() {
-    await getAccountData()
+const reloadKey = ref(0);
+
+function loadUser() {
+    getAccountData()
         .then((data) => {
             localStorage.setItem("user", JSON.stringify(data));
             logged.value = true;
+            reloadKey.value++;
         })
         .catch((error) => {
             localStorage.clear();
@@ -22,13 +25,19 @@ async function loadUser() {
 }
 
 onActivated(() => {
-    console.log("Hola mundo");
+    loadUser();
+});
+onMounted(() => {
+    console.log("VUelve home");
 
     loadUser();
+});
+onUnmounted(() => {
+    console.log("Cierre home");
 });
 </script>
 
 <template>
-    <NavBar :logged="logged"></NavBar>
+    <NavBar :key="reloadKey" :logged="logged"></NavBar>
     <RouterView />
 </template>

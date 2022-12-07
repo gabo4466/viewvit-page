@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import Menubar from "primevue/menubar";
 import type { MenuItem } from "primevue/menuitem";
@@ -46,7 +46,7 @@ const items = ref<MenuItem[]>([
 
 <template>
     <div>
-        <Menubar :model="items">
+        <Menubar exact :model="items">
             <template #start>
                 <img
                     alt="logo"
