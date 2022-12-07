@@ -1,24 +1,41 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import type { Ref } from "vue";
+import { ref, onMounted } from "vue";
+
+import PostComponent from "@/components/Post.vue";
+import type { Post } from "@/interfaces/post.interface";
+import { usePosts } from "../../composables/usePosts";
+import type { ErrorResponse } from "@/interfaces/responses/error-response.interface";
+
+const posts: Ref<Post[]> = ref([]);
+const isLoading: Ref<boolean> = ref(false);
+const { getPosts } = usePosts();
+
+const term = ref("");
+let offset = 0;
+const morePosts = ref(true);
+
+onMounted(() => {
+    getPosts(isLoading, offset, term)
+        .then((data: Post[]) => {
+            posts.value = data;
+        })
+        .catch((error: ErrorResponse) => {
+            // TODO: ERRORS
+            if (error.statusCode === 404) {
+                morePosts.value = false;
+            }
+        });
+});
+</script>
 
 <template>
     <div class="w-full mt-4">
         <div class="surface-card shadow-1 p-5">
             <h1>Recent posts 🔥</h1>
-            <!-- POSTS -->
-            <div class="surface-50 p-4 shadow-2 border-round mb-4">
-                <!-- TITLE -->
-                <div class="text-3xl font-medium text-900 mb-3">
-                    Primer post xd
-                </div>
-                <!-- USER -->
-                <div class="font-medium text-500 mb-3 text-primary">sadr12</div>
-                <!-- CONTENT -->
-                <div class="border-2 border-dashed surface-border p-4">
-                    Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                    Accusantium eaque id nostrum, perferendis consectetur nemo
-                    sit corporis et hic totam! Quae error ea, obcaecati
-                    cupiditate esse laboriosam rem excepturi aliquid.
-                </div>
+            <PostComponent v-for="post in posts" :post="post"></PostComponent>
+            <div class="wrapper w-full">
+                <ProgressSpinner v-show="isLoading" />
             </div>
         </div>
     </div>

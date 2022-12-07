@@ -89,7 +89,7 @@ function signIn(event: Event) {
                     >
                     <RouterLink class="no-underline" to="/home">
                         <a class="font-medium ml-2 text-blue-500 cursor-pointer"
-                            >Back</a
+                            >Go to Home</a
                         >
                     </RouterLink>
                 </div>

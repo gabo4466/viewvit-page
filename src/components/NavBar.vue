@@ -45,8 +45,12 @@ const items = ref<MenuItem[]>([
 </script>
 
 <template>
-    <div>
-        <Menubar exact :model="items">
+    <nav class="w-full">
+        <Menubar
+            class="border-primary border-top-none border-left-none border-right-none"
+            exact
+            :model="items"
+        >
             <template #start>
                 <img
                     alt="logo"
@@ -56,7 +60,14 @@ const items = ref<MenuItem[]>([
                 />
             </template>
         </Menubar>
-    </div>
+    </nav>
+    <div class="mb-7"></div>
 </template>
 
-<style scoped></style>
+<style scoped>
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+</style>
