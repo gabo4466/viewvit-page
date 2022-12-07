@@ -41,6 +41,14 @@ const items = ref<MenuItem[]>([
         },
         visible: logged,
     },
+    {
+        label: "Create Post",
+        icon: "pi pi-fw pi-plus",
+        command: () => {
+            router.push({ path: "/create-post" });
+        },
+        visible: logged,
+    },
 ]);
 </script>
 
