@@ -51,7 +51,7 @@ function signIn(event: Event) {
                 <span class="text-600 font-medium line-height-3"
                     >Don't have an account?</span
                 >
-                <RouterLink to="/auth/register">
+                <RouterLink to="/register">
                     <a
                         class="font-medium no-underline ml-2 text-blue-500 cursor-pointer"
                         >Create one!</a
