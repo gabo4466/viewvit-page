@@ -83,7 +83,7 @@ function signUp() {
                 <span class="text-600 font-medium line-height-3"
                     >Already have an account?</span
                 >
-                <RouterLink to="/login">
+                <RouterLink class="no-underline" to="/login">
                     <a
                         class="font-medium no-underline ml-2 text-blue-500 cursor-pointer"
                         >Sign In!</a

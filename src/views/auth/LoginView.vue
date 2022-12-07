@@ -51,7 +51,7 @@ function signIn(event: Event) {
                 <span class="text-600 font-medium line-height-3"
                     >Don't have an account?</span
                 >
-                <RouterLink to="/register">
+                <RouterLink class="no-underline" to="/register">
                     <a
                         class="font-medium no-underline ml-2 text-blue-500 cursor-pointer"
                         >Create one!</a
@@ -87,6 +87,11 @@ function signIn(event: Event) {
                         class="font-medium no-underline ml-2 text-blue-500 text-right cursor-pointer"
                         >Forgot password?</a
                     >
+                    <RouterLink class="no-underline" to="/home">
+                        <a class="font-medium ml-2 text-blue-500 cursor-pointer"
+                            >Back</a
+                        >
+                    </RouterLink>
                 </div>
 
                 <transition-group name="p-message" tag="div">
