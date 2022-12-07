@@ -33,19 +33,19 @@ const items = ref<MenuItem[]>([
         visible: logged,
     },
     {
+        label: "Create Post",
+        icon: "pi pi-fw pi-plus",
+        command: () => {
+            router.push({ path: "/home/create-post" });
+        },
+        visible: logged,
+    },
+    {
         label: "Sign Out",
         icon: "pi pi-fw pi-sign-out",
         command: () => {
             localStorage.clear();
             router.push({ path: "/login" });
-        },
-        visible: logged,
-    },
-    {
-        label: "Create Post",
-        icon: "pi pi-fw pi-plus",
-        command: () => {
-            router.push({ path: "/home/create-post" });
         },
         visible: logged,
     },

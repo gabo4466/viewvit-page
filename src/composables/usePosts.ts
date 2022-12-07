@@ -30,7 +30,27 @@ export function usePosts() {
         });
     };
 
+    const createPost = (isLoading: Ref<boolean>, postRef: Ref<Post>) => {
+        const post = unref(postRef);
+        delete post.user;
+        console.log(post);
+
+        return new Promise<any>((resolve, reject) => {
+            isLoading.value = true;
+            http.post(apiUrl, post)
+                .then((data: Post) => {
+                    resolve(data);
+                })
+                .catch((errorData: ErrorResponse) => {
+                    reject(errorData);
+                });
+
+            isLoading.value = false;
+        });
+    };
+
     return {
         getPosts,
+        createPost,
     };
 }
