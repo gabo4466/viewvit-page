@@ -2,7 +2,7 @@
 
 <template>
     <div class="w-full mt-4">
-        <h1>Profile</h1>
+        <h1>Work in progress</h1>
     </div>
 </template>
 

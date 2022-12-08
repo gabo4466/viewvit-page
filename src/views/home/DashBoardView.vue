@@ -73,7 +73,7 @@ onMounted(() => {
                 />
             </div>
 
-            <div class="wrapper w-full fadein">
+            <div class="wrapper w-full fadein flex justify-content-center">
                 <ProgressSpinner v-show="isLoading" />
             </div>
         </div>

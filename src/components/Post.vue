@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { RouterLink } from "vue-router";
 import type { Post } from "@/interfaces/post.interface";
 import Avatar from "primevue/avatar";
 
@@ -13,7 +14,18 @@ const post = props.post;
     <!-- POSTS -->
     <div class="surface-50 p-4 shadow-2 border-round mb-4 scalein">
         <!-- TITLE -->
-        <div class="text-3xl font-medium text-900 mb-3">{{ post.subject }}</div>
+        <div v-if="!post.id_post" class="text-3xl font-medium text-900 mb-3">
+            {{ post.subject }}
+        </div>
+        <RouterLink
+            v-else
+            class="no-underline"
+            :to="{ name: 'post', params: { id_post: post.id_post } }"
+        >
+            <div class="text-3xl font-medium text-900 mb-3 cursor-pointer">
+                {{ post.subject }}
+            </div>
+        </RouterLink>
         <!-- USER -->
         <div class="flex justify-content-between flex-wrap">
             <div

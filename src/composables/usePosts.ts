@@ -49,8 +49,21 @@ export function usePosts() {
         });
     };
 
+    const findOneById = (isLoading: Ref<boolean>, id_post: string) => {
+        return new Promise<any>((resolve, reject) => {
+            http.get(`${apiUrl}/${id_post}`, {})
+                .then((data: Post) => {
+                    resolve(data);
+                })
+                .catch((errorData: ErrorResponse) => {
+                    reject(errorData);
+                });
+        });
+    };
+
     return {
         getPosts,
         createPost,
+        findOneById,
     };
 }
