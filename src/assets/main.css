@@ -1,16 +1,16 @@
 @import 'vela-purple.css';
 
 #app {
-  display: flex;
-  justify-content: center;
   margin: 0 auto;
   padding: 2rem;
   font-weight: normal;
-  font-family: var(--font-family);
   color: var(--primary-color-text);
 }
 
+* {
+  font-family: var(--font-family);
+}
 
 body {
-  background-color: var(--surface-0);
+  background-color: var(--surface-ground);
 }
